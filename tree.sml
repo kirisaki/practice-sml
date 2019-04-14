@@ -12,6 +12,13 @@ fun insert (key, v, LEAF) = TREE(LEAF, key, v, LEAF)
     then TREE(l, k, v, insert(key, v', r))
     else TREE(l, key, v', r)
 
+
+fun rotR (TREE (TREE (ll, lk, lv, lr), k, v, r)) = TREE (ll, lk, lv, TREE (lr, k, v, r))
+  | rotR t = t
+
+fun rotL (TREE (l, k, v, TREE (rl, rk, rv, rr))) = TREE (TREE(l, k, v, rl), rk, rv, rr)
+  | rotL t = t
+
 infix 2 or
 fun false or false = false
   | _ or _ = true
@@ -33,3 +40,4 @@ fun lookup (LEAF, key) = NONE
     if key = k
     then SOME v
     else lookup (l, key) or' lookup (r, key)
+
